@@ -1,0 +1,22 @@
+name: Build Windows EXE
+
+on:
+push:
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: windows-latest
+
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: ilammy/msvc-dev-cmd@v1
+
+  - name: Compile C++
+    run: cl /nologo /EHsc /MT main.cpp /Fe:MyProgram.exe
+
+  - uses: actions/upload-artifact@v4
+    with:
+      name: MyProgram-Windows
+      path: MyProgram.exe
